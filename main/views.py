@@ -1,7 +1,10 @@
 from django.shortcuts import render
 
+from products.models import Category
+
 
 def index(request):
+
     context = {
         'title': 'Home - Главная',
         'content': 'Магазин мебели HOME',
@@ -31,7 +34,7 @@ def delivery(request):
     return render(request, 'main/delivery.html', context)
 
 
-def information (request):
+def information(request):
     context = {
         'title': 'Home - Контактная информация',
         'content': 'Контактная информация',
