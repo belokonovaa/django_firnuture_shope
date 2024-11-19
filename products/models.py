@@ -6,6 +6,7 @@ class Category(models.Model):
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name='URL')
 
     class Meta:
+        db_table = 'categories'
         verbose_name = 'категорию'
         verbose_name_plural = 'категории'
 
@@ -24,6 +25,7 @@ class Product(models.Model):
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE, verbose_name='Категория')
 
     class Meta:
+        db_table = 'products'
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
         ordering: ('id',)
