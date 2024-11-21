@@ -16,7 +16,7 @@
                                     data-cart-id="" data-cart-change-url="">-</button>
                             </span>
                             <input type="text" class="form-control number" value="{{ basket.quantity }}"
-                                readonly>
+                                readonly style="text-align: center;">
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-dark btn-sm increment"
                                     data-cart-id="" data-cart-change-url="">+</button>
@@ -26,9 +26,11 @@
                     <div class="col p-0">
                         <p>x {{ basket.product.sell_price }} = </p>
                     </div>
-                    <div class="col p-0"><strong>{{ basket.products_price }} $</strong></div>
                     <div class="col p-0">
-                        <a href="{% url 'basket:basket_delete' 1 %}" class="remove-from-cart" data-cart-id="">
+                        <strong>{{ basket.products_price }} $</strong>
+                    </div>
+                    <div class="col p-0">
+                        <a href="{% url 'basket:basket_delete' basket.id %}" class="remove-from-cart" data-cart-id="">
                             <img class="mx-1" src="{% static 'deps/icons/trash3-fill.svg' %}"
                                 alt="Catalog Icon" width="16" height="16">
                         </a>

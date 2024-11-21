@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
+from django.urls import reverse
 
 from baskets.models import Basket
 from products.models import Product
@@ -26,5 +28,9 @@ def basket_change(request, product_slug):
     ...
 
 
-def basket_delete(request, product_slug):
-    ...
+def basket_delete(request, basket_id):
+
+    basket = Basket.objects.get(id=basket_id)
+    basket.delete()
+
+    return HttpResponseRedirect(reverse('user:users_basket'))
