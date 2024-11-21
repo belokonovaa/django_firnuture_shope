@@ -68,7 +68,14 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
+def users_basket(request):
+    return render(request, 'users/users_basket.html')
+
+
+@login_required
 def logout(request):
     messages.success(request, 'Вы вышли из аккаунта')
     auth.logout(request)
     return HttpResponseRedirect(reverse('user:login'))
+
+
