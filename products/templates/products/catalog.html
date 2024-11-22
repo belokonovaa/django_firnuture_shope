@@ -63,8 +63,9 @@
                 <h2 class="my-4">По запросу "{{ request.GET.q }}" ничего не найдено.</h2>
             {% endif %}
         {% endif %}
+
         {% for product in products %}
-             <!-- Карта товара -->
+        <!-- Карта товара -->
             <div class="col-lg-4 col-md-6 p-4">
                 <div class="card border-primary rounded custom-shadow">
                     {% if product.image %}
@@ -86,7 +87,7 @@
                             </p>
                         </a>
                         <p class="card-text">
-                            {% autoescape off%}
+                            {% autoescape off %}
                                 {% if product.bodyline %}
                                     {{ product.bodyline|truncatechars:100 }}
                                 {% else %}
@@ -116,7 +117,6 @@
                 </div>
             </div>
         {% endfor %}
-
 
     </div>
     <!-- Пагинация -->
@@ -156,12 +156,4 @@
 
 {% endblock %}
 
-
-{% block footer %}
-    <footer class="py-4 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Home Python Hub Studio 2023</p>
-        </div>
-    </footer>
-{% endblock %}
 
