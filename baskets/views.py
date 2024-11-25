@@ -1,6 +1,5 @@
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import JsonResponse
 from django.template.loader import render_to_string
-from django.urls import reverse
 
 from baskets.models import Basket
 from baskets.utils import get_user_baskets
@@ -26,12 +25,12 @@ def basket_add(request):
 
     user_basket = get_user_baskets(request)
 
-    cart_items_html = render_to_string(
+    basket_items_html = render_to_string(
         'baskets/includes/included_basket.html', {'baskets': user_basket}, request=request)
 
     response_data = {
         'message': 'Товар добавлен в корзину',
-        'cart_items_html': cart_items_html,
+        'cart_items_html': basket_items_html,
     }
     return JsonResponse(response_data)
 
@@ -40,9 +39,22 @@ def basket_change(request, product_slug):
     ...
 
 
-def basket_delete(request, basket_id):
+def basket_delete(request):
 
+    basket_id = request.POST.get('cart_id')
     basket = Basket.objects.get(id=basket_id)
+    quantity = basket.quantity
     basket.delete()
 
-    return HttpResponseRedirect(reverse('user:users_basket'))
+    user_basket = get_user_baskets(request)
+
+    basket_items_html = render_to_string(
+        'baskets/includes/included_basket.html', {'baskets': user_basket}, request=request)
+
+    response_data = {
+        'message': 'Товар удален из корзины',
+        'cart_items_html': basket_items_html,
+        'quantity_deleted': quantity,
+    }
+
+    return JsonResponse(response_data)
