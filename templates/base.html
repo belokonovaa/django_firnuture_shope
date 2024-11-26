@@ -44,7 +44,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  text-white" href="{% url 'user:users_basket' %}">Корзина</a>
+                            <a class="nav-link  text-white" href="{% url 'user:users_cart' %}">Корзина</a>
                         </li>
 
                         {% if not user.is_authenticated %}
@@ -58,7 +58,7 @@
                                     Мой профиль
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item  text-white" href="{% url 'user:users_basket' %}">Корзина</a></li>
+                                    <li><a class="dropdown-item  text-white" href="{% url 'user:users_cart' %}">Корзина</a></li>
                                     <li><a class="dropdown-item  text-white" href="{% url 'user:profile' %}">Личный кабинет</a></li>
                                     {% if user.is_superuser or user.is_stuff %}
                                         <li><a class="dropdown-item  text-white" href="{% url 'admin:index' %}">Админ панель</a></li>
@@ -102,7 +102,7 @@
                     </ul>
                 </div>
                 <!-- Значек корзины, вызывает модальное окно -->
-                {% block modal_basket %} {% endblock %}
+                {% block modal_cart %} {% endblock %}
                 <!-- Закончилась разметка модального окна -->
             </div>
         </div>

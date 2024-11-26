@@ -1,7 +1,5 @@
 from django.shortcuts import render
 
-from products.models import Category
-
 
 def index(request):
 

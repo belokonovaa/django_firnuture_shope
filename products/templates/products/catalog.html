@@ -2,8 +2,8 @@
 {% load static %}
 {% load products_tags %}
 
-{% block modal_basket %}
-    {% include 'includes/basket_button.html' %}
+{% block modal_cart %}
+    {% include 'includes/cart_button.html' %}
 {% endblock %}
 
 
@@ -108,7 +108,7 @@
                                 <p><strong>{{ product.price }} $</strong></p>
                             {% endif %}
 
-                            <a href="{% url 'basket:basket_add' %}" class="btn add-to-cart"
+                            <a href="{% url 'cart:cart_add' %}" class="btn add-to-cart"
                             data-product-id="{{ product.id }}">
                                 {% csrf_token %}
                                 <img class="mx-1" src=" {% static 'deps/icons/cart-plus.svg' %}" alt="Catalog Icon"

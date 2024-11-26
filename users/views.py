@@ -68,8 +68,8 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
-def users_basket(request):
-    return render(request, 'users/users_basket.html')
+def users_cart(request):
+    return render(request, 'users/users_cart.html')
 
 
 @login_required

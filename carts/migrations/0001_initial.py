@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name': 'корзина',
                 'verbose_name_plural': 'корзина',
-                'db_table': 'baskets',
+                'db_table': 'carts',
             },
         ),
     ]

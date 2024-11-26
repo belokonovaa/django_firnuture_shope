@@ -7,15 +7,15 @@ from products.models import Product
 class CartQueryset(models.QuerySet):
 
     def total_price(self):
-        return sum(basket.products_price() for basket in self)
+        return sum(cart.products_price() for cart in self)
 
     def total_quantity(self):
         if self:
-            return sum(basket.quantity for basket in self)
+            return sum(cart.quantity for cart in self)
         return 0
 
 
-class Basket(models.Model):
+class Cart(models.Model):
 
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь')
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE, verbose_name='Товар')
@@ -24,7 +24,7 @@ class Basket(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 
     class Meta:
-        db_table = 'baskets'
+        db_table = 'carts'
         verbose_name = 'корзину'
         verbose_name_plural = 'корзины'
 
