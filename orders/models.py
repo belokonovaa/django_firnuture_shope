@@ -40,7 +40,7 @@ class OrderItem(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
-    created_timestemps = models.DateTimeField(auto_now_add=True, verbose_name='Дата продажи')
+    created_timestemp = models.DateTimeField(auto_now_add=True, verbose_name='Дата продажи')
 
     class Meta:
         db_table = 'order_item'

@@ -16,15 +16,6 @@
                         {% include 'carts/includes/included_cart.html' %}
                         <!-- Закончилась разметка корзины -->
                     </div>
-                    {% if carts %}
-                        <a class="btn btn-dark" href="orders/create_order.html">
-                            Оформить заказ
-                        </a>
-                    {% else %}
-                        <a class="btn btn-dark" href="{% url 'main:index' %}">
-                            Перейти к покупкам
-                        </a>
-                    {% endif %}
                 </div>
             </div>
         </div>
