@@ -23,8 +23,7 @@ def login(request):
                 messages.success(request, f'{username}, Вы вошли в аккаунт.')
 
                 if session_key:
-                    Cart.objects.filter(
-                        session_key=session_key).update(user=user)
+                    Cart.objects.filter(session_key=session_key).update(user=user)
 
                 return redirect('main:index')
 
@@ -45,16 +44,9 @@ def registration(request):
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
             form.save()
-            user = form.instance
+            messages.success(request, 'Вы успешно зарегистрировались.')
 
-            session_key = request.session.session_key
-
-            if session_key:
-                Cart.objects.filter(session_key=session_key).update(user=user)
-
-            messages.success(request, f'{user.username}, Вы успешно зарегистрировались.')
-
-            return HttpResponseRedirect(reverse('user:login'))
+            return redirect('user:login')
 
     else:
         form = UserRegistrationForm()
