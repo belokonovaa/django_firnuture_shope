@@ -1,6 +1,6 @@
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.urls import reverse
 
 from carts.models import Cart
@@ -26,7 +26,7 @@ def login(request):
                     Cart.objects.filter(
                         session_key=session_key).update(user=user)
 
-                return HttpResponseRedirect(reverse('main:index'))
+                return redirect('main:index')
 
     else:
         form = UserLoginForm()
@@ -45,10 +45,9 @@ def registration(request):
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
             form.save()
+            user = form.instance
 
             session_key = request.session.session_key
-
-            user = form.instance
 
             if session_key:
                 Cart.objects.filter(session_key=session_key).update(user=user)
