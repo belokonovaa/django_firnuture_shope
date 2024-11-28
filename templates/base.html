@@ -64,7 +64,10 @@
                                         <li><a class="dropdown-item  text-white" href="{% url 'admin:index' %}">Админ панель</a></li>
                                     {% endif %}
                                     <li></li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item  text-white" href="{% url 'user:logout' %}">Выйти</a></li>
+                                    <form action="{% url 'user:logout' %}" method="post">
+                                    {% csrf_token %}
+                                        <button type="submit" class="dropdown-item  text-white">Выйти</button>
+                                    </form>
                                 </ul>
                             </li>
                         {% endif %} 
