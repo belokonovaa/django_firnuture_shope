@@ -1,12 +1,11 @@
 from django.urls import path
 
-from main.views import index, about, delivery, information
-
+from main.views import IndexView, AboutView, DeliveryView, InformationView
 app_name = 'main'
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('about/', about, name='about'),
-    path('delivery/', delivery, name='delivery'),
-    path('information/', information, name='info'),
+    path('', IndexView.as_view(), name='index'),
+    path('about/', AboutView.as_view(), name='about'),
+    path('delivery/', DeliveryView.as_view(), name='delivery'),
+    path('information/', InformationView.as_view(), name='info'),
 ]
