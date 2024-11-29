@@ -1,5 +1,6 @@
 #python stuff
 __pycache__/
+cache
 
 #ide stuff
 .idea

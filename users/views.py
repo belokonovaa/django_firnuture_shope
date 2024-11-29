@@ -1,13 +1,14 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.contrib import auth, messages
+from django.core.cache import cache
 from django.db.models import Prefetch
-from django.shortcuts import render, HttpResponseRedirect, redirect
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, TemplateView
 
 from carts.models import Cart
+from common.mixins import CacheMixin
 from orders.models import Order, OrderItem
 from users.forms import UserLoginForm, UserRegistrationForm, ProfileForm
 
@@ -59,7 +60,7 @@ class UserRegistrationView(CreateView):
         return context
 
 
-class UserProfileView(LoginRequiredMixin, UpdateView):
+class UserProfileView(CacheMixin, LoginRequiredMixin, UpdateView):
     template_name = 'users/profile.html'
     form_class = ProfileForm
     success_url = reverse_lazy('users:profile')
@@ -73,16 +74,18 @@ class UserProfileView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
 
-        orders = Order.objects.filter(user=self.request.user).prefetch_related(
-                    Prefetch(
-                        'orderitem_set',
-                        queryset=OrderItem.objects.select_related('product'),
-                    )
-                ).order_by('-id')
-
         context = super().get_context_data(**kwargs)
         context['title'] = 'Home - Личный кабинет'
-        context['orders'] = orders
+
+        orders = Order.objects.filter(user=self.request.user).prefetch_related(
+                            Prefetch(
+                                'orderitem_set',
+                                queryset=OrderItem.objects.select_related('product'),
+                            )
+                        ).order_by('-id')
+
+        context['orders'] = self.set_get_cache(orders, f'user_{self.request.user.id}_orders', 60 * 2)
+
         return context
 
 
